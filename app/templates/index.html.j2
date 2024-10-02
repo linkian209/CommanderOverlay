@@ -1,0 +1,31 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Index{% endblock %}
+
+{% block header %}<link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">{% endblock %}
+
+{% block content %}
+    <div id="welcome" class="container-fluid">
+        <h1>Welcome to Commander Overlay!</h1>
+        <hr>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary">
+            <i class="bi bi-discord"></i> Login with Discord
+        </a>
+    </div>
+    <div id="p1" class="banner top-left top-left-trap" style="padding-right: 40.1px; background: linear-gradient(rgb(14, 104, 171), rgb(0, 115, 62));">
+        <div id="p1-title" class="title top-left-trap ps-3" style="width: 441.1px">Kinnan, Bonder Prodigy</div>
+    </div>
+    <div id="p2" class="banner top-right top-right-trap" style="padding-left: 85.4px; background: rgb(211, 32, 42)">
+        <div id="p2-title" class="title top-right-trap pe-3" style="width: 939.4px">Slicer, Hired Muscle // Slicer, High-Speed Antagonist</div>
+    </div>
+    <div id="p4" class="banner bottom-left bottom-left-trap" style="padding-right: 50.8px; background: linear-gradient(rgb(14, 104, 171), rgb(21, 11, 0), rgb(211, 32, 42));">
+        <div id="p4-title" class="title bottom-left-trap ps-3" style="width: 558.8px;">
+            Rograkh, Son of Rohgahh
+            <br>
+            Silas Renn, Seeker Adept
+        </div>
+    </div>
+    <div id="p3" class="banner bottom-right bottom-right-trap" style="padding-left: 47.9px; background: linear-gradient(rgb(14, 104, 171), rgb(21, 11, 0));">
+        <div id="p3-title" class="title bottom-right-trap pe-3" style="width: 526.9px;">Yuriko, the Tiger's Shadow</div>
+    </div>
+{% endblock %}

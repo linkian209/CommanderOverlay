@@ -1,0 +1,237 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Management{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center vh-100 flex-column" style="background-color: #DADADA;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="border-right: 1px solid #000; border-bottom: 1px solid #000;">
+                    <div class="mb-3">
+                        <label for="commander1p1" class="form-label">Commander 1</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander1-p1" name="commander1p1" placeholder="Type Commander 1">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander1-p1">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commander2p1" class="form-label">Commander 2</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander2-p1" name="commander2p1" placeholder="Type Commander 2">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander2-p1">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="border-left: 1px solid #000; border-bottom: 1px solid #000;">
+                    <div class="mb-3">
+                        <label for="commander1p2" class="form-label">Commander 1</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander1-p2" name="commander1p2" placeholder="Type Commander 1">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander1-p2">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commander2p2" class="form-label">Commander 2</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander2-p2" name="commander2p2" placeholder="Type Commander 2">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander2-p2">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="border-top: 1px solid #000; border-right: 1px solid #000;">
+                    <div class="mb-3">
+                        <label for="commander1p4" class="form-label">Commander 1</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander1-p4" name="commander1p4" placeholder="Type Commander 1">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander1-p4">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commander2p4" class="form-label">Commander 2</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander2-p4" name="commander2p4" placeholder="Type Commander 2">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander2-p4">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="border-top: 1px solid #000; border-left: 1px solid #000;">
+                    <div class="mb-3">
+                        <label for="commander1p3" class="form-label">Commander 1</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander1-p3" name="commander1p3" placeholder="Type Commander 1">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander1-p3">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commander2p3" class="form-label">Commander 2</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander2-p3" name="commander2p3" placeholder="Type Commander 2">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander2-p3">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input-group mt-3 w-50">
+            <input type="text" class="form-control" id="overlay_url" value="{{ url_for('overlay.overlay', overlay_id=current_user.overlay.id, _external=True) }}" disabled>
+            <button class="btn btn-primary" type="button" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <a href="{{ url_for('auth.logout') }}" class="btn btn-danger mt-3">Logout</a>
+
+        <script>
+            function copyToClipboard() {
+                const toast = new bootstrap.Toast(document.getElementById("copied_toast"));
+
+                var url = document.getElementById("overlay_url");
+                url.select();
+                url.setSelectionRange(0, 99999);
+                navigator.clipboard.writeText(url.value);
+
+                toast.show();
+            }
+        </script>
+    </div> 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="copied_toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">URL Copied!</div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="p1" class="banner top-left top-left-trap">
+        <div id="p1-title" class="title top-left-trap ps-3"></div>
+    </div>
+    <div id="p2" class="banner top-right top-right-trap">
+        <div id="p2-title" class="title top-right-trap pe-3"></div>
+    </div>
+    <div id="p4" class="banner bottom-left bottom-left-trap">
+        <div id="p4-title" class="title bottom-left-trap ps-3"></div>
+    </div>
+    <div id="p3" class="banner bottom-right bottom-right-trap">
+        <div id="p3-title" class="title bottom-right-trap pe-3"></div>
+    </div>
+    <script type="module">
+        import Autocomplete from "https://cdn.jsdelivr.net/gh/lekoala/bootstrap5-autocomplete@master/autocomplete.js";
+        import { updateDisplay, loadCommanders } from "{{ url_for('static', filename='js/util.js') }}";
+        import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+
+        var commanders = loadCommanders({{ current_user.overlay.to_dict() | tojson }});
+        
+        const socket = io();
+
+        Autocomplete.init("input.autocomplete", {
+            source: function (term, response) {
+                fetch(`https://api.scryfall.com/cards/autocomplete?q=${term}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        response(data.data);
+                    });
+            },
+            onSelectItem: function (item, autocomplete) {
+                console.log("Item selected", item, autocomplete);
+                let [commander_number, player_number] = autocomplete._searchInput.id.split('-');
+                fetch(`https://api.scryfall.com/cards/named?exact=${item.label}`)
+                    .then(response => response.json())
+                    .then(cardData => {
+                        commanders[player_number][commander_number]["name"] = cardData.name;
+                        commanders[player_number][commander_number]["colors"] = cardData.color_identity;
+
+                        updateDb()
+                        .then(updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]))
+                        .catch(error => console.error('Error updating database:', error));
+
+                    })
+                    .catch(error => console.error('Error fetching card data:', error));
+            },
+            fullWidth: true,
+            preventBrowserAutocomplete: true,
+            highlightTyped: false
+        });
+
+        function clear(id) {
+            document.getElementById(id).value = "";
+            let [commander_number, player_number] = id.split('-');
+            commanders[player_number][commander_number].name = "";
+            commanders[player_number][commander_number].colors = [];
+            updateDb().catch(error => console.error('Error updating database:', error));
+        }
+
+        function updateDb() {
+            return fetch("{{ url_for('overlay.manage') }}", {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    player1_commander1: commanders["p1"]["commander1"]["name"],
+                    player1_commander1_ci: commanders["p1"]["commander1"]["colors"].join(","),
+                    player1_commander2: commanders["p1"]["commander2"]["name"],
+                    player1_commander2_ci: commanders["p1"]["commander2"]["colors"].join(","),
+                    player2_commander1: commanders["p2"]["commander1"]["name"],
+                    player2_commander1_ci: commanders["p2"]["commander1"]["colors"].join(","),
+                    player2_commander2: commanders["p2"]["commander2"]["name"],
+                    player2_commander2_ci: commanders["p2"]["commander2"]["colors"].join(","),
+                    player3_commander1: commanders["p3"]["commander1"]["name"],
+                    player3_commander1_ci: commanders["p3"]["commander1"]["colors"].join(","),
+                    player3_commander2: commanders["p3"]["commander2"]["name"],
+                    player3_commander2_ci: commanders["p3"]["commander2"]["colors"].join(","),
+                    player4_commander1: commanders["p4"]["commander1"]["name"],
+                    player4_commander1_ci: commanders["p4"]["commander1"]["colors"].join(","),
+                    player4_commander2: commanders["p4"]["commander2"]["name"],
+                    player4_commander2_ci: commanders["p4"]["commander2"]["colors"].join(",")
+                })
+            });
+        }
+
+
+        document.querySelectorAll("button[data-commanderplayer]").forEach(button => {
+            button.addEventListener("click", function() {
+                clear(this.getAttribute("data-commanderplayer"));
+            });
+        });
+
+        Object.keys(commanders).forEach(player_number => {
+            Object.keys(commanders[player_number]).forEach(commander_number => {
+                document.getElementById(commander_number+"-"+player_number).value = commanders[player_number][commander_number].name;
+                updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
+            });
+        });
+
+        socket.join("{{ current_user.overlay.id }}");
+
+        socket.on("connect", () => {
+            console.log("Connected to server");
+        });
+
+        socket.on("update", data => {
+            console.log("Received update: ", data);
+            commanders = loadCommanders(data);
+            Object.keys(commanders).forEach(player_number => {
+                Object.keys(commanders[player_number]).forEach(commander_number => {
+                    document.getElementById(commander_number+"-"+player_number).value = commanders[player_number][commander_number].name;
+                    updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
+                });
+            });
+        });
+
+    </script>
+{% endblock %}

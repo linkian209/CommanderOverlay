@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commander Overlay - {{ overlay.id }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='css/overlay.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div id="p1" class="banner top-left top-left-trap" style="visibility: hidden">
+        <div id="p1-title" class="title top-left-trap ps-3"></div>
+    </div>
+    <div id="p2" class="banner top-right top-right-trap" style="visibility: hidden">
+        <div id="p2-title" class="title top-right-trap pe-3"></div>
+    </div>
+    <div id="p4" class="banner bottom-left bottom-left-trap" style="visibility: hidden">
+        <div id="p4-title" class="title bottom-left-trap ps-3"></div>
+    </div>
+    <div id="p3" class="banner bottom-right bottom-right-trap" style="visibility: hidden">
+        <div id="p3-title" class="title bottom-right-trap pe-3"></div>
+    </div>
+    <script type="module">
+        import { updateDisplay, loadCommanders } from "{{ url_for('static', filename='js/util.js') }}";
+        import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+
+        var commanders = loadCommanders({{ overlay.to_dict() | tojson }});
+
+        const socket = io();
+
+        Object.keys(commanders).forEach(player_number => {
+            Object.keys(commanders[player_number]).forEach(commander_number => {
+                updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
+            });
+        });
+
+        setTimeout(() => {
+            Object.keys(commanders).forEach(player_number => {
+                Object.keys(commanders[player_number]).forEach(commander_number => {
+                    updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
+                    document.getElementById(player_number).style.visibility = "visible";
+                });
+            });
+        }, 10);
+
+        socket.join("{{ overlay.id }}");
+
+        socket.on("update", (data) => {
+            commanders = loadCommanders(data);
+            Object.keys(commanders).forEach(player_number => {
+                Object.keys(commanders[player_number]).forEach(commander_number => {
+                    updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
