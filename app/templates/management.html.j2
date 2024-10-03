@@ -167,7 +167,6 @@
                         commanders[player_number][commander_number]["colors"] = cardData.color_identity;
 
                         updateDb()
-                        .then(updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]))
                         .catch(error => console.error('Error updating database:', error));
 
                     })
@@ -236,10 +235,9 @@
             });
         }, 10);
 
-        socket.join("{{ current_user.overlay.id }}");
-
         socket.on("connect", () => {
             console.log("Connected to server");
+            socket.emit("join", "{{ current_user.overlay.id }}");
         });
 
         socket.on("update", data => {

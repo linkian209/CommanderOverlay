@@ -43,7 +43,10 @@
             });
         }, 10);
 
-        socket.join("{{ overlay.id }}");
+        socket.on("connect", () => {
+            console.log("Connected to server");
+            socket.emit("join", "{{ overlay.id }}");
+        });
 
         socket.on("update", (data) => {
             commanders = loadCommanders(data);

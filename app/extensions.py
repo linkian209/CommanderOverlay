@@ -17,8 +17,8 @@ cors = CORS()
 
 @socketio.on('join')
 def on_connect(data):
-    join_room(data['overlay_id'])
+    join_room(data)
 
 @socketio.on('leave')
 def on_disconnect(data):
-    leave_room(data['overlay_id'])
+    leave_room(data)
