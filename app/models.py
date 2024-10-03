@@ -1,8 +1,12 @@
+from sqlalchemy import BigInteger, Integer
 from app.extensions import db
 from flask_login import UserMixin
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import Optional
 import json
+
+# SQLite treats all ints as the same, so we want to make sure other variants can use a big integer
+ID_TYPE = BigInteger().with_variant(Integer, "sqlite")
 
 
 class User(db.Model, UserMixin):
@@ -21,7 +25,7 @@ class User(db.Model, UserMixin):
         to_dict() -> dict:
             Converts the user instance to a dictionary.
     '''
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(ID_TYPE, primary_key=True)
     username: Mapped[Optional[str]]
     overlay: Mapped["Overlay"] = relationship(back_populates="user")
 
@@ -74,7 +78,7 @@ class Overlay(db.Model):
         update(data: dict) -> None:
     '''
     id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(db.ForeignKey('user.id'), nullable=False)
+    user_id: Mapped[int] = mapped_column(ID_TYPE, db.ForeignKey('user.id'), nullable=False)
     user: Mapped["User"] = relationship(back_populates="overlay")
     player1_commander1: Mapped[Optional[str]]
     player1_commander1_ci: Mapped[Optional[str]]
