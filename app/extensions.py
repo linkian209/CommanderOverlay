@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -12,6 +13,7 @@ db = SQLAlchemy(model_class=BaseModel)
 migrate = Migrate()
 login_manager = LoginManager()
 socketio = SocketIO()
+cors = CORS()
 
 @socketio.on('join')
 def on_connect(data):

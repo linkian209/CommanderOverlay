@@ -1,4 +1,4 @@
-from app.extensions import db, migrate, login_manager, socketio
+from app.extensions import db, migrate, login_manager, socketio, cors
 from app.routes.auth import auth_bp
 from app.routes.overlay import overlay_bp
 from flask import Flask, redirect, url_for, render_template
@@ -38,6 +38,7 @@ def create_app():
     migrate.init_app(app, db)
     login_manager.init_app(app)
     socketio.init_app(app)
+    cors.init_app(app)
 
     # Make sure flask migrate knows about them
     from app.models import User, Overlay
