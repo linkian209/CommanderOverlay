@@ -24,8 +24,12 @@ def create_app():
     if(app.config.get("OAUTHLIB_INSECURE_TRANSPORT")):
         os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
+    if(app.config.get("NUM_PROXIES") == None):
+        app.config["NUM_PROXIES"] = 1
+    num_proxies = app.config.get("NUM_PROXIES")
+
     if(app.config.get("DEBUG") == False):
-        app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1, x_for=1, x_port=1, x_prefix=1)
+        app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=num_proxies, x_host=num_proxies, x_for=num_proxies, x_port=num_proxies, x_prefix=num_proxies)
 
     app.register_error_handler(404, error_handler)
     app.register_error_handler(500, error_handler)

@@ -117,16 +117,16 @@
             </div>
         </div>
     </div>
-    <div id="p1" class="banner top-left top-left-trap">
+    <div id="p1" class="banner top-left top-left-trap" style="visibility: hidden">
         <div id="p1-title" class="title top-left-trap ps-3"></div>
     </div>
-    <div id="p2" class="banner top-right top-right-trap">
+    <div id="p2" class="banner top-right top-right-trap" style="visibility: hidden">
         <div id="p2-title" class="title top-right-trap pe-3"></div>
     </div>
-    <div id="p4" class="banner bottom-left bottom-left-trap">
+    <div id="p4" class="banner bottom-left bottom-left-trap" style="visibility: hidden">
         <div id="p4-title" class="title bottom-left-trap ps-3"></div>
     </div>
-    <div id="p3" class="banner bottom-right bottom-right-trap">
+    <div id="p3" class="banner bottom-right bottom-right-trap" style="visibility: hidden">
         <div id="p3-title" class="title bottom-right-trap pe-3"></div>
     </div>
     <script type="module">
@@ -215,6 +215,15 @@
                 updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
             });
         });
+
+        setTimeout(() => {
+            Object.keys(commanders).forEach(player_number => {
+                Object.keys(commanders[player_number]).forEach(commander_number => {
+                    updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
+                    document.getElementById(player_number).style.visibility = "visible";
+                });
+            });
+        }, 10);
 
         socket.join("{{ current_user.overlay.id }}");
 
