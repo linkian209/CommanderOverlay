@@ -5,6 +5,7 @@ Commander Overlay is a web application designed to provide an interactive overla
 ## Table of Contents
 
 - [Installation](#installation)
+- [Notes](#notes)
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
@@ -29,10 +30,30 @@ Commander Overlay is a web application designed to provide an interactive overla
     pip install -r requirements.txt
     ```
 
-4. Set up the database:
+4. Create a configuration file in the `instance` folder:
+    ```sh
+    mkdir -p instance
+    touch instance/config.json
+    ```
+
+    Add your configuration settings in `instance/config.json`. For example:
+    ```json
+    {
+        "SECRET_KEY": "your_secret_key",
+        "SQLALCHEMY_DATABASE_URI": "sqlite:///your_database.db"
+    }
+    ```
+
+5. Set up the database:
     ```sh
     flask db upgrade
     ```
+
+## Notes
+
+- The project uses PostgreSQL as the production database. The PostgreSQL driver (`psycopg2-binary`) is included in the `requirements.txt` file.
+- If you encounter any issues with the installation or setup, please refer to the [official documentation](https://www.postgresql.org/docs/) for PostgreSQL.
+- For any additional help, feel free to open an issue on the GitHub repository.
 
 ## Usage
 
