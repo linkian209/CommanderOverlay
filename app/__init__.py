@@ -37,7 +37,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
-    socketio.init_app(app)
+    socketio.init_app(app, cors_allowed_origins="*")
     cors.init_app(app)
 
     # Make sure flask migrate knows about them
