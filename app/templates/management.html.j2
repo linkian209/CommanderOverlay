@@ -2,12 +2,17 @@
 
 {% block title %}Management{% endblock %}
 
+{% block header%}
+    <link href="{{ url_for('static', filename='css/management.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-    <div class="d-flex justify-content-center align-items-center vh-100 flex-column" style="background-color: #DADADA;">
+    <div class="d-flex justify-content-center align-items-center p-3 min-vh-100 flex-column" style="background-color: #DADADA;">
         <div class="container">
             <div class="row">
-                <div class="col-md-6" style="border-right: 1px solid #000; border-bottom: 1px solid #000;">
+                <div class="col-md-6 top-left-cell">
                     <div class="mb-3">
+                        <h2>Player 1</h2>
                         <label for="commander1p1" class="form-label">Commander 1</label>
                         <div class="input-group">
                             <input type="text" class="form-control autocomplete" id="commander1-p1" name="commander1p1" placeholder="Type Commander 1">
@@ -26,8 +31,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6" style="border-left: 1px solid #000; border-bottom: 1px solid #000;">
+                <div class="col-md-6 top-right-cell">
                     <div class="mb-3">
+                        <h2>Player 2</h2>
                         <label for="commander1p2" class="form-label">Commander 1</label>
                         <div class="input-group">
                             <input type="text" class="form-control autocomplete" id="commander1-p2" name="commander1p2" placeholder="Type Commander 1">
@@ -48,28 +54,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6" style="border-top: 1px solid #000; border-right: 1px solid #000;">
+                <div class="col-md-6 bottom-right-cell order-md-last">
                     <div class="mb-3">
-                        <label for="commander1p4" class="form-label">Commander 1</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control autocomplete" id="commander1-p4" name="commander1p4" placeholder="Type Commander 1">
-                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander1-p4">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="commander2p4" class="form-label">Commander 2</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control autocomplete" id="commander2-p4" name="commander2p4" placeholder="Type Commander 2">
-                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander2-p4">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" style="border-top: 1px solid #000; border-left: 1px solid #000;">
-                    <div class="mb-3">
+                        <h2>Player 3</h2>
                         <label for="commander1p3" class="form-label">Commander 1</label>
                         <div class="input-group">
                             <input type="text" class="form-control autocomplete" id="commander1-p3" name="commander1p3" placeholder="Type Commander 1">
@@ -88,13 +75,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6 bottom-left-cell">
+                    <div class="mb-3">
+                        <h2>Player 4</h2>
+                        <label for="commander1p4" class="form-label">Commander 1</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander1-p4" name="commander1p4" placeholder="Type Commander 1">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander1-p4">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commander2p4" class="form-label">Commander 2</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" id="commander2-p4" name="commander2p4" placeholder="Type Commander 2">
+                            <button type="button" class="btn bg-transparent" style="margin-left: -40px; z-index: 100;" data-commanderplayer="commander2-p4">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label for="overlay_url" class="form-label">Overlay URL</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="overlay_url" value="{{ url_for('overlay.overlay', overlay_id=current_user.overlay.id, _external=True) }}" disabled>
+                    <button class="btn btn-primary" type="button" onclick="copyToClipboard()">Copy</button>
+                </div>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-danger mt-3">Logout</a>
             </div>
         </div>
-        <div class="input-group mt-3 w-50">
-            <input type="text" class="form-control" id="overlay_url" value="{{ url_for('overlay.overlay', overlay_id=current_user.overlay.id, _external=True) }}" disabled>
-            <button class="btn btn-primary" type="button" onclick="copyToClipboard()">Copy</button>
-        </div>
-        <a href="{{ url_for('auth.logout') }}" class="btn btn-danger mt-3">Logout</a>
 
         <script>
             function copyToClipboard() {
@@ -220,7 +231,7 @@
             Object.keys(commanders).forEach(player_number => {
                 Object.keys(commanders[player_number]).forEach(commander_number => {
                     updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
-                    document.getElementById(player_number).style.visibility = "visible";
+                    document.getElementById(player_number).style.visibility = "";
                 });
             });
         }, 10);

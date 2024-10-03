@@ -38,7 +38,7 @@
             Object.keys(commanders).forEach(player_number => {
                 Object.keys(commanders[player_number]).forEach(commander_number => {
                     updateDisplay(player_number, commanders[player_number]["commander1"], commanders[player_number]["commander2"]);
-                    document.getElementById(player_number).style.visibility = "visible";
+                    document.getElementById(player_number).style.visibility = "";
                 });
             });
         }, 10);
