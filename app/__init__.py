@@ -3,6 +3,7 @@ from app.routes.auth import auth_bp
 from app.routes.overlay import overlay_bp
 from flask import Flask, redirect, url_for, render_template
 from flask_login import current_user
+from werkzeug.middleware.proxy_fix import ProxyFix
 import json
 import os
 
@@ -22,6 +23,9 @@ def create_app():
 
     if(app.config.get("OAUTHLIB_INSECURE_TRANSPORT")):
         os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
+    if(app.config.get("DEBUG") == False):
+        app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1, x_for=1, x_port=1, x_prefix=1)
 
     app.register_error_handler(404, error_handler)
     app.register_error_handler(500, error_handler)
